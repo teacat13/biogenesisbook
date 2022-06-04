@@ -1,0 +1,51 @@
+
+{% load entity_tag %}
+            <header class="header">
+                <div class="container-fluid px-lg-5">
+                    <!-- nav -->
+                    <nav class="py-4" >
+                        <img src="/static/images/logo2.png">
+                        <div id="logo">
+                             <h3> <a href="{% url 'index' %}" class="editContent" style="outline: none; outline-offset: -2px; cursor: inherit; color: #def3ff; font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;, sans-serif;">BiogenesisBook</a></h3>
+                        </div>
+
+                        <label for="drop" class="toggle">Меню</label>
+                        <input type="checkbox" id="drop">
+                        <ul class="menu mt-2">
+                            <li class="active"><a href="{% url 'index' %}">Главная</a></li>
+                                                       <li>
+                                <!-- First Tier Drop Down -->
+
+                            </li>
+                            <li>
+                                {% if user.is_authenticated %}
+                                 <span style="color: #6684e1; font-weight: 700;">{{ user.username }}</span>
+                                <a href="{% url 'account_logout' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">
+                                    Выход
+                                </a>
+                                {% else %}
+                                <a href="{% url 'account_login' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">
+                                    Вход
+                                </a>
+                                <a href="{% url 'account_signup' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">
+                                    Регистрация
+                                </a>
+                                {% endif %}
+                            </li>
+                        </ul>
+
+                    </nav>
+                    <!-- //nav -->
+                </div>
+            </header>
+            <!-- //header -->
+            <!--/banner-->
+            <div class="banner-info">
+                <p class="editContent" >красная и чёрная книги</p>
+                <h3 class="mb-4 editContent">Все о животных</h3>
+                <div class="ban-buttons">
+
+
+                </div>
+            </div>
+            <!--// banner-inner -->

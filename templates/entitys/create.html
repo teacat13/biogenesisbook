@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} {% endblock title %}
+{% block content %}
+
+<br>
+<div>
+<form action="{% url 'create' %}" method="post" enctype="multipart/form-data" style="margin-left: 30%">
+  <h3>Добавить статью</h3>
+    <br>
+
+    {% csrf_token %}
+    {{form.media}}
+    {{form.as_p}}
+    <h8>Когда вы нажмёте кнопку "добавить", статья будет отправлена на рассмотрение администратору. </h8>
+    <br>
+    <button type="submit"  class="btn btn-success py-6">Добавить</button>
+
+</form>
+<br>
+</div>
+{% endblock content %}

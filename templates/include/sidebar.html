@@ -1,0 +1,49 @@
+{% load entity_tag %}
+
+    <div class="search-bar w3layouts-newsletter">
+        <h3 class="sear-head editContent" >Поиск животного</h3>
+        <form action="{% url 'search'  %}" method="get" class="d-flex editContent" >
+            <input type="search" placeholder="Введите название..." name="q" class="form-control" required="">
+            <button type = "submit" class="btn1 btn" ><span class="fa fa-search" aria-hidden="true" ></span></button>
+        </form>
+    </div>
+
+    <!--preference -->
+    <form action=" {% url 'filter' %}" method="get">
+        <div class="left-side my-4">
+            <h3 class="sear-head editContent" >Виды</h3>
+            <ul class="w3layouts-box-list">
+                {% for vid in view.get_vidss %}
+                <li class="editContent" >
+                    <input type="checkbox" class="checked" name = "vid" value = "{{vid.id}}">
+                    <span class="span editContent" >{{vid.name}}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="left-side">
+            <h3 class="sear-head editContent" >Семейства</h3>
+            <ul class="w3layouts-box-list">
+                {% for family in view.get_familys %}
+                <li class="editContent" >
+                    <input type="checkbox" class="checked" name = "family" value = "{{family.id}}">
+                    <span class="span editContent" >{{family.name}}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="left-side">
+            <h3 class="sear-head editContent" >Какая книга</h3>
+            <ul class="w3layouts-box-list">
+                {% for book in view.get_books %}
+                <li class="editContent" >
+                    <input type="checkbox" class="checked" name = "book" value = "{{book.id}}">
+                    <span class="span editContent" >{{book.name}}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <button type="submit" class="btn btn-success py-6">Найти</button>
+    </form>

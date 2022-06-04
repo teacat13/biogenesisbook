@@ -1,0 +1,128 @@
+{% extends 'entitys/base.html' %}
+{% load static %}
+{% block title %} {{entity.title}} {% endblock title %}
+    {% block container %}
+            <div class="container py-md-3">
+    {% endblock container %}
+
+    {% block sidebar %}
+        <div class="side-bar col-lg-4">
+     {% endblock sidebar %}
+
+{% block entity %}
+<div class="left-ads-display col-lg-8">
+    <div class="row">
+        <div class="desc1-left col-md-6">
+                <img src="{{entity.poster.url}}" class="img-fluid-img" alt="{{image.description}}">
+        </div>
+        <div class="desc1-right col-md-6 pl-lg-4">
+            <h3 class="editContent" style="outline: none; cursor: inherit;">
+                {{entity.title}}
+            </h3>
+            <h5 class="editContent"></h5>
+            <ul>
+                <li style="list-style: none"><span><b>Вид:</b> {{entity.vid}}</span></li>
+                <li style="list-style: none"><span><b>Семейство:</b>{{entity.family}}</span>
+                <li style="list-style: none"><span><b>{{entity.book}}</b></span>
+                </li>
+
+
+                <li style="list-style: none"><span><b>Описание:</b>
+                {{entity.text_preview}}
+                </span></li>
+
+        </div>
+    </div>
+    <div class="row sub-para-w3layouts mt-5">
+
+        <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
+            {{entity.title}}</h3>
+        <p>
+            {% for image in entity.entityshots_set.all %}
+            <img src="{{image.image.url}}" class="img-entity-shots" alt="{{image.description}}">
+            {% endfor %}
+
+        </p>
+        <p class="editContent" style="outline: none; cursor: inherit;">
+            {{entity.description | safe}}
+        </p>
+
+    </div>
+    <hr>
+    <div class="row">
+        <div class="single-form-left">
+            <!-- contact form grid -->
+            <div class="contact-single">
+                <h3 class="editContent" style="outline: none; cursor: inherit;">
+                    <span class="sub-tittle editContent">{{ entity.reviews_set.count }}</span>
+                    Оставить комментарий
+                </h3>
+                <form action="{% url 'add_review' entity.id  %}" method="post" class="mt-4" id="formReview">
+                    {% csrf_token %}
+                    <input type="hidden" name="parent" id="contactparent" value="">
+                    <div class="form-group editContent">
+
+                        <label for="contactcomment" class="editContent">
+                            Ваш комментарий *
+                        </label>
+                        {{form.text}}
+                    </div>
+                    <div class="d-sm-flex">
+                        <div class="col-sm-6 form-group p-0 editContent">
+                            <label for="contactusername" class="editContent">
+                                Имя *
+                            </label>
+                            {{form.name}}
+                        </div>
+                        <div class="col-sm-6 form-group ml-sm-3 editContent">
+                            <label for="contactemail" class="editContent">
+                                Email *
+                            </label>
+                            {{form.email}}
+                        </div>
+                        {{form.captcha}}
+                    </div>
+                    <button type="submit"
+                            class="mt-3 btn btn-success btn-block py-3">
+                        Отправить
+                    </button>
+                </form>
+            </div>
+            <!--  //contact form grid ends here -->
+        </div>
+                </div>
+        {% for review in entity.get_review %}
+        <div class="media py-5">
+            <img src="{% static 'images/te2.jpg' %}" class="mr-3 img-fluid" alt="image">
+            <div class="media-body mt-4">
+                <h5 class="mt-0 editContent">
+                    {{ review.name }}
+                </h5>
+                <p class="mt-2 editContent">
+                    {{ review.text }}
+                </p>
+                <a href="#formReview" onclick="addReview('{{ review.name }}', '{{review.id}}')">Ответить</a>
+                    {% for rew in review.reviews_set.all %}
+                   <div class="media mt-5 editContent">
+                        <a class="pr-3" href="#">
+                            <img src="{% static 'images/te2.jpg' %}" class="img-fluid "
+                                 alt="image" style="outline: none; cursor: inherit;">
+                        </a>
+                        <div class="media-body">
+                            <h5 class="mt-0 editContent"> {{ rew.name }}</h5>
+                            <p class="mt-2 editContent"> {{ rew.text }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+   <script>
+       function addReview(name, id) {
+           document.getElementById("contactparent").value = id;
+           document.getElementById("contactcomment").innerText = `${name}, `
+       }
+   </script>
+{% endblock entity %}
